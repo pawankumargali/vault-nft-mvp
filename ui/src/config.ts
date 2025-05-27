@@ -1,6 +1,7 @@
 export const PORTFOLIO_VAULT_PACKAGE_ID = "0x7fa2eb45505a312af03493b28ad94828e5d28a17b8d3ef3702fb612a6e336774";
 export const PORTFOLIO_VAULT_MODULE_NAME = "vault";
-export const API_BASE_URL = 'http://localhost:8081/api'; // Or your deployed API URL
+// export const API_BASE_URL = "http://localhost:8081/api/v1";
+export const API_BASE_URL = "https://vault-api.pawan.wtf/api/v1";
 
 export const PREFERRED_STABLE_COIN = {
     symbol: 'USDCm', // The symbol we expect to see in APIs and for display
