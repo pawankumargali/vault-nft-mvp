@@ -1,0 +1,45 @@
+import dotenv from 'dotenv';
+dotenv.config();
+
+const {
+  PORT=8081,
+  DATABASE_URL,
+  PYTH_BASE_URL,
+  RATE_LIMIT_RPM,
+} = process.env;
+
+if(!DATABASE_URL || !RATE_LIMIT_RPM || !PYTH_BASE_URL)
+  throw new Error('missing config')
+
+// const VAULT_PACKAGE_ID = process.env.SUI_PACKAGE_ID || '0xa5141e4d543dc694295f1a7e372b0274a8342a701dc402dbdec7a98b0df4bcd8';
+// const VAULT_PACKAGE_ID = process.env.SUI_PACKAGE_ID || '0xb0d8e8c44d6050bfb6e7219d9b042715288185a04092297ec1bba8257534b69e';
+// const VAULT_PACKAGE_ID = process.env.SUI_PACKAGE_ID || '0xef2717b96d561338643185dccf55dc3b591ff13f2eebb2f9895f50aa7a6241bc';
+const VAULT_PACKAGE_ID = process.env.SUI_PACKAGE_ID ||'0x25b823474303ddec62f2f4c38796459030c9451367ad8a566f785d28fec96387'
+
+const VAULT_MODULE_NAME = 'vault';
+
+
+const EVENT_TYPES = {
+  VAULT_CREATED: `${VAULT_PACKAGE_ID}::${VAULT_MODULE_NAME}::VaultCreated`,
+};
+
+const INDEXING_BATCH_LIMIT = 200;
+
+const INDEXER_POLL_MS = 2000;
+
+const SUI_NETWORK = 'testnet'
+
+
+
+export {
+  PORT,
+  DATABASE_URL,
+  PYTH_BASE_URL,
+  RATE_LIMIT_RPM,
+  VAULT_PACKAGE_ID,
+  VAULT_MODULE_NAME,
+  EVENT_TYPES,
+  INDEXING_BATCH_LIMIT,
+  INDEXER_POLL_MS,
+  SUI_NETWORK
+};

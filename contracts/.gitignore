@@ -1,0 +1,7 @@
+*.log
+*.txt
+*.local
+*.env
+*.json
+*.yaml
+*.yml

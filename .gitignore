@@ -1,0 +1,9 @@
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+sui-localnet/
+
+# Logs
+logs
+*.log

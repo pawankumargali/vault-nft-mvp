@@ -1,0 +1,41 @@
+{
+  "name": "api",
+  "private": true,
+  "version": "0.0.1",
+  "type": "module",
+  "scripts": {
+    "start": "npx prisma generate && npx prisma migrate deploy && node src/app.js",
+    "start:indexer": "node src/indexer.js",
+    "start:dev": "npx prisma generate && nodemon src/app.js",
+    "generate": "npx prisma generate",
+    "migrate:dev": "npx prisma migrate dev",
+    "migrate:deploy": "npx prisma migrate deploy",
+    "seed": "npx prisma db seed",
+    "start:localnet-explorer": "sui-explorer-local start",
+    "stop:localnet-explorer": "sui-explorer-local stop"
+  },
+  "prisma": {
+    "seed": "node prisma/seed.js"
+  },
+  "dependencies": {
+    "@mysten/sui": "^1.30.0",
+    "@prisma/client": "^6.8.2",
+    "axios": "^1.6.8",
+    "cors": "^2.8.5",
+    "decimal.js": "^10.5.0",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "express-rate-limit": "^7.0.0",
+    "helmet": "^7.0.0",
+    "node-cache": "^5.1.2",
+    "node-cron": "^3.0.3",
+    "p-retry": "^6.2.1",
+    "pg": "^8.11.3",
+    "prisma": "^6.8.2",
+    "ws": "^8.18.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.0",
+    "sui-explorer-local": "^2.5.0"
+  }
+}

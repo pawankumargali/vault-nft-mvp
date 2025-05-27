@@ -1,0 +1,62 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model CoinPrice {
+  id           Int       @id @default(autoincrement())
+  coin_id      Int       @unique()
+  price_usd    Decimal   @db.Decimal(38, 18)
+  conf_usd     Decimal   @db.Decimal(38,18)
+  publish_time DateTime
+  updated_at   DateTime  @updatedAt
+  coin         Coin      @relation(fields: [coin_id],  references: [id], onDelete: Cascade)
+  @@map("coin_price")
+}
+
+model Coin {
+  id              Int       @id @default(autoincrement())
+  name            String
+  symbol          String    @unique()
+  decimals        Int       @default(9)
+  icon            String    @default("")
+  coin_type       String
+  created_at      DateTime  @default(now())
+  updated_at      DateTime  @updatedAt
+  is_active       Boolean   @default(true)
+  price_feed_id   String
+  price_info      CoinPrice?
+
+  @@map("coin")
+}
+
+model Event {
+  seq           BigInt   @id
+  package_id    String   @db.Char(66)
+  txn_module    String
+  evt_type      String
+  timestamp_ms  BigInt?
+  txn_digest    String   @db.Char(44)
+  payload_json  Json     @db.JsonB
+  createdAt     DateTime @default(now())
+
+  @@unique([txn_digest, seq])
+  @@index([evt_type])
+  @@index([timestamp_ms])
+  @@index([package_id, txn_module, timestamp_ms])
+  @@map("event")
+}
+
+model Cursor {
+  id            Int     @id @default(1)
+  lastTxDigest  String  @default("")
+  lastSeq       BigInt  @default(0)
+  @@map("cursor")
+}
