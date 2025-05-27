@@ -161,7 +161,7 @@ class CoinPriceService {
                 return { count: 0, status: "success", message: "No valid data to upsert." };
             }
 
-            console.log('ALL_PRICE_RECORDS', JSON.stringify(allPriceRecords));
+            // console.log('ALL_PRICE_RECORDS', JSON.stringify(allPriceRecords));
             // Using Prisma $transaction for the upsert
             await db.$transaction(async (tx) => {
 
