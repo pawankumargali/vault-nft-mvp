@@ -4,7 +4,7 @@ import './styles.css'
 import App from './App'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
-// import { getFullnodeUrl } from '@mysten/sui/client'
+import { getFullnodeUrl } from '@mysten/sui/client'
 import { SuiClientProvider, WalletProvider, createNetworkConfig } from '@mysten/dapp-kit'
 import '@mysten/dapp-kit/dist/index.css' // Import dapp-kit styles
 
@@ -13,9 +13,7 @@ const queryClient = new QueryClient()
 // Setup network config for devnet
 const { networkConfig } = createNetworkConfig({
   // devnet: { url: getFullnodeUrl('devnet') },
-  // You can add other networks like testnet or mainnet here
-  // testnet: { url: getFullnodeUrl('testnet') },
-  testnet: { url: 'https://rpc-testnet.suiscan.xyz/' },
+  testnet: { url: getFullnodeUrl('testnet') },
   // mainnet: { url: getFullnodeUrl('mainnet') },
 })
 

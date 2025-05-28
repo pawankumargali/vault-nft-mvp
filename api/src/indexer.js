@@ -30,8 +30,7 @@ if (!SUI_NETWORK) {
 
 const prisma = new PrismaClient();
 const sui = new SuiClient({
-  // url: getFullnodeUrl(SUI_NETWORK)
-  url: 'https://rpc-testnet.suiscan.xyz/'
+  url: getFullnodeUrl(SUI_NETWORK)
 });
 
 // --- Constants for initial cursor state ---

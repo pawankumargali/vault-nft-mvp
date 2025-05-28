@@ -15,7 +15,7 @@ async function main() {
       name : 'Sui',
       symbol : 'SUI',
       decimals : 9,
-      icon : '',
+      icon : 'https://s2.coinmarketcap.com/static/img/coins/64x64/20947.png',
       coin_type : '0x2::sui::SUI',
       price_feed_id : '50c67b3fd225db8912a424dd4baed60ffdde625ed2feaaf283724f9608fea266'
     },
@@ -23,7 +23,7 @@ async function main() {
       name : 'Bitcoin',
       symbol : 'BTCm',
       decimals : 8,
-      icon : '',
+      icon : 'https://s2.coinmarketcap.com/static/img/coins/64x64/1.png',
       coin_type : '0x5678::bctm::BTCM',
       price_feed_id : 'f9c0172ba10dfa4d19088d94f5bf61d3b54d5bd7483a322a982e1373ee8ea31b'
     },
@@ -31,7 +31,7 @@ async function main() {
       name : 'Tether Gold',
       symbol : 'XAUtm',
       decimals : 6,
-      icon : '',
+      icon : 'https://s2.coinmarketcap.com/static/img/coins/64x64/5176.png',
       coin_type : '0xdad3fffed2df9da67d04c6813625ec9d5deff5a7c4e5c49a201deba4018fb0d3::xautm::XAUTM',
       price_feed_id : 'b828d7baf048f26e111d1d057238dea676d99869345d6ea90e1ca7799a2c23f3'
     },
@@ -39,7 +39,7 @@ async function main() {
       name : 'Wrapped Bitcoin',
       symbol : 'WBTCm',
       decimals : 8,
-      icon : '',
+      icon : 'https://s2.coinmarketcap.com/static/img/coins/64x64/3717.png',
       coin_type : '0xba0a3572d255d816bf30d0d8c9eb9edcd99107af6030312ac296bb971f0a59c8::wbtcm::WBTCM',
       price_feed_id : 'ea0459ab2954676022baaceadb472c1acc97888062864aa23e9771bae3ff36ed'
     },
@@ -47,7 +47,7 @@ async function main() {
       name : 'USDC',
       symbol : 'USDCm',
       decimals : 6,
-      icon : '',
+      icon : 'https://s2.coinmarketcap.com/static/img/coins/64x64/3408.png',
       coin_type : '0x8c17b383e12e98e5d475c9d0ef8c10bf1cc11494b304038a9706fa6c10ff3a5a::usdcm::USDCM',
       price_feed_id : '41f3625971ca2ed2263e78573fe5ce23e13d2558ed3f2e47ab0f84fb9e7ae722'
     }
