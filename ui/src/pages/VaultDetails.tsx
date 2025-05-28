@@ -104,7 +104,7 @@ const VaultDetails = () => {
   const [isRebalanceModalOpen, setIsRebalanceModalOpen] = useState(false);
   const [proposedTrades, setProposedTrades] = useState<ProposedTrade[]>([]);
   const [isCalculatingRebalance, setIsCalculatingRebalance] = useState(false);
-
+  const [isCopied, setIsCopied] = useState(false);
 
   const showNotification = (type: NotificationType, message: string) => {
     setNotification({ type, message });
@@ -237,6 +237,17 @@ const VaultDetails = () => {
   // Removed enrichAndSetVaultDetails from dependency array as it's defined outside and causes re-runs. Alternative is to memoize it or include all its own dependencies if it were inside useEffect.
   // For simplicity here, assuming its dependencies (apiSupportedTokens, tokenPrices) are stable or trigger re-runs of this useEffect anyway.
 
+
+    const handleCopy = () => {
+    if (vaultDetails?.id) {
+      navigator.clipboard.writeText(vaultDetails.id);
+      setIsCopied(true);
+      showNotification('success', 'Vault ID copied to clipboard!');
+      setTimeout(() => {
+        setIsCopied(false);
+      }, 2000); // Reset after 2 seconds
+    }
+  };
 
   const handleWithdraw = async () => {
     if (!currentAccount?.address || !vaultDetails || !selectedTokenForWithdrawal || !withdrawAmount) {
@@ -546,6 +557,10 @@ const VaultDetails = () => {
     setIsWithdrawModalOpen(true);
   };
 
+  // console.log('VAULT_DETAILS_TOKENS', vaultDetails.tokens);
+
+  // console.log('API_TOKENS', apiSupportedTokens);
+
   const isProcessingAnything = isProcessingLocalTx || isSignAndExecutePending || isCalculatingRebalance;
 
   return (
@@ -593,6 +608,20 @@ const VaultDetails = () => {
               <p className="text-sm text-gray-500 font-mono bg-gray-100 px-2 py-0.5 rounded inline-block" title={vaultDetails.id}>
                 ID: {vaultDetails.id.substring(0,12)}...{vaultDetails.id.substring(vaultDetails.id.length - 8)}
               </p>
+              <button onClick={handleCopy} className="p-1 rounded-md hover:bg-gray-200 transition relative group">
+                  {isCopied ? (
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                    </svg>
+                  ) : (
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                    </svg>
+                  )}
+                   <span className="absolute -top-7 left-1/2 -translate-x-1/2 text-xs bg-gray-800 text-white px-2 py-1 rounded-md opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
+                    {isCopied ? 'Copied!' : 'Copy ID'}
+                  </span>
+              </button>
             </div>
             <div className="mt-4 sm:mt-0 text-right">
               <p className="text-sm text-gray-600">Total Value</p>
@@ -609,7 +638,7 @@ const VaultDetails = () => {
           </div>
           <div className="bg-gray-50 p-4 rounded-lg shadow-sm border border-gray-100">
             <h3 className="text-xs text-gray-500 uppercase font-semibold mb-1">Last Rebalance</h3>
-            <p className="text-lg font-medium text-gray-800">{vaultDetails.displayLastRebalance}</p>
+            <p className="text-lg font-medium text-gray-800">{'NA'}</p>
           </div>
           <div className="bg-gray-50 p-4 rounded-lg shadow-sm border border-gray-100">
             <h3 className="text-xs text-gray-500 uppercase font-semibold mb-1">Asset Count</h3>

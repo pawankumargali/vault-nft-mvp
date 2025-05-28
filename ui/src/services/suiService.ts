@@ -1,4 +1,4 @@
-import { SuiClient } from '@mysten/sui/client';
+import { getFullnodeUrl, SuiClient } from '@mysten/sui/client';
 import { PORTFOLIO_VAULT_PACKAGE_ID } from '../config';
 
 // Helper to convert string to a Uint8Array (vector<u8> in Move)
@@ -199,9 +199,8 @@ const tokenWeightsMap = (
 
 export async function getVaults(owner: string): Promise<ProcessedVault[]> {
   const client = new SuiClient({
-    // url: getFullnodeUrl('testnet')
-    url: 'https://rpc-testnet.suiscan.xyz/'
-  }); // Consider making network configurable
+    url: getFullnodeUrl('testnet')
+  }); 
 
   /* ---- 1. grab every vault object owned by the user ------------------ */
   const { data: vaultObjs } = await client.getOwnedObjects({
@@ -425,7 +424,9 @@ export const getVaultById = async (
 
       const eventResponse = await client.queryEvents({
         query: { MoveEventType: eventType },
-        // order: 'descending', // Not strictly needed as we iterate, but could optimize if events are many
+        order: 'ascending',
+        cursor: null,
+        limit: 10000
       });
 
       for (const event of eventResponse.data) {
@@ -441,6 +442,7 @@ export const getVaultById = async (
       if (!capId) {
         console.warn(`VaultCap ID not found for vault ${vaultId} from VaultCreated events. Operations requiring VaultCap might fail.`);
       }
+      console.log('[vaultCapId]', capId);
     } catch (eventError) {
       console.error(`Error fetching VaultCreated event for vault ${vaultId}:`, eventError);
       // Decide if this is critical. For now, we proceed without capId.

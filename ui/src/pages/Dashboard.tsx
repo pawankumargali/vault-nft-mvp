@@ -6,7 +6,7 @@ import {
   useSuiClient,
   useSignAndExecuteTransaction,
 } from '@mysten/dapp-kit';
-import { SuiClient, type SuiTransactionBlockResponse } from '@mysten/sui/client';
+import { getFullnodeUrl, SuiClient, type SuiTransactionBlockResponse } from '@mysten/sui/client';
 import { Transaction, type TransactionObjectArgument } from '@mysten/sui/transactions';
 import { formatDistanceToNow } from 'date-fns';
 import { bcs } from '@mysten/bcs';
@@ -93,8 +93,7 @@ const Dashboard = () => {
 	});
   const navigate = useNavigate();
   const suiClient = useMemo(() => new SuiClient({
-    // url: getFullnodeUrl('testnet')
-    url: 'https://rpc-testnet.suiscan.xyz/'
+    url: getFullnodeUrl('testnet')
   }), []);
 
   const [apiSupportedTokens, setApiSupportedTokens] = useState<ApiToken[]>([]);
@@ -795,7 +794,7 @@ const Dashboard = () => {
                         <td className="px-6 py-4"><div className="space-y-2">{vault.tokens.filter(t => t.weightBps > 0).map(token => (<div key={`${vault.id}-${token.coinType}`} className="flex items-center justify-between max-w-[150px] bg-gray-50 rounded-full px-3 py-1 text-sm"><span className="text-gray-600 font-medium">{token.symbol}</span><span className="text-gray-900 font-semibold bg-white px-1.5 py-0.5 rounded-full text-xs shadow-sm border border-gray-100">{token.weight}%</span></div>))}</div></td>
                         <td className="px-6 py-4 font-semibold text-gray-900">${vault.displayTotalValue}</td>
                         <td className="px-6 py-4"><span className={`px-3 py-1.5 text-xs font-medium rounded-full ${vault.policy.derivedTypeString === 'Manual' ? 'bg-gradient-to-r from-blue-100 to-blue-50 text-blue-800 border border-blue-200' : 'bg-gradient-to-r from-green-100 to-green-50 text-green-800 border border-green-200'}`}>{vault.policyDisplay}</span></td>
-                        <td className="px-6 py-4 text-sm text-gray-500">{vault.displayLastRebalance}</td>
+                        <td className="px-6 py-4 text-sm text-gray-500">{'NA'}</td>
                       </tr>
                     ))}
                   </tbody>
